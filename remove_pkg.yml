@@ -1,0 +1,13 @@
+---
+- name: remove packages
+  hosts: all
+  become: true
+# gather_facts: no
+
+  tasks:
+  - name: remove httpd packages
+    yum:
+      name: httpd
+      state: absent
+    when: ansible_os_family == "RedHat"
+

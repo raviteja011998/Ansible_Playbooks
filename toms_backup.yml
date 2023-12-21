@@ -1,0 +1,19 @@
+---
+- name: TOMS backup users
+  hosts: TOMS_APP
+  become: yes
+  gather_facts: yes
+  remote_user: "{{ toms_remote_user }}"
+  become_user: "{{ toms_become_user }}"  
+
+  tasks:
+
+  - name: "Check backup dir exist for TOMS"
+    include_role:
+      name: check_backup_dir_exists
+
+
+  - name: TOMS backup
+    include_role:
+      name: toms_backup
+
