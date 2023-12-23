@@ -5,6 +5,14 @@
   tasks:
   - name: creating user john  
     user: 
-      name: john
+      name: sonia
+
+  - name: create a directory
+    file:
+      path: /opt/sonia_temp_dir
+      state: directory
+      owner: sonia
+      group: sonia
+      mode: 0755    
 
 
