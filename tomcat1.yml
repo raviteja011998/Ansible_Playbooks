@@ -38,9 +38,17 @@
       loop:
         - { tomcat_script: startup.sh, tomcat_cmd: tomcatup }
         - { tomcat_script: shutdown.sh, tomcat_cmd: tomcatdown }
+      notify: start tomcat
 
+    - name: change port number
+      copy:
+        src: server.xml
+        dest: /opt/{{ tomcat_package }}/conf/server.xml
+      notify: restart tomcat     
 
-    - name: start the services
-      command: nohup ./startup.sh
-      args:
-        chdir: /opt/{{ tomcat_package }}/bin
+  handlers:    
+   - name: start tomcat
+     shell: nohup /usr/local/bin/tomcatup
+      
+   - name: restart tomcat     
+     shell: /usr/local/bin/tomcatdown; nohup /usr/local/bin/tomcatup
